@@ -1,0 +1,49 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  margin: 0 2rem;
+  .actions {
+    position: relative;
+    margin-top: 4rem;
+  }
+  .formGroup {
+    margin-bottom: 2.5rem;
+    label {
+      display: block;
+      margin-bottom: .75rem;
+      font-size: .75rem;
+      font-weight: 700;
+    }
+  }
+  .btn {
+    border-color: transparent;
+    * {
+      box-shadow: none;
+    }
+  }
+}
+
+.error {
+  position: absolute;
+  right: 0;
+  bottom: 100%;
+  left: 0;
+  display: block;
+  margin-bottom: .75rem;
+  font-size: .875rem;
+  font-weight: 400;
+  color: $color-pink6;
+  text-align: center;
+}
+
+.lock {
+  padding: .875rem;
+  margin-top: 2rem;
+  font-size: .875rem;
+  color: $color-pink6;
+  text-align: center;
+  border: 1px solid $color-pink6;
+  border-radius: 10px;
+}

@@ -1,0 +1,123 @@
+.content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  line-height: 1.6;
+  cursor: pointer;
+  border-radius: 8px;
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1.06375rem 0;
+    font-size: 0.875rem;
+    font-weight: 700;
+    background: transparent;
+  }
+  // バリエーション
+  &.contained {
+    background: $color-purple;
+    border: 1px solid $color-purple;
+    .button {
+      color: $color-white;
+    }
+  }
+  &.outlined {
+    background: transparent;
+    border: 1px solid $color-purple;
+    .button {
+      color: $color-purple;
+      text-decoration: none;
+    }
+  }
+
+  &.outlinedBorderGray3 {
+    width: 14.125rem;
+    margin: auto;
+    background: transparent;
+    border: 1px solid var(--cl-line);
+    border-radius: 1.5rem;
+    button {
+      padding: 0.75rem 0;
+      font-size: 0.875rem;
+      color: var(--cl-text-sub);
+      border-radius: 1.5rem;
+    }
+  }
+
+  &.outlinedBorderGray4 {
+    width: 10rem;
+    background: transparent;
+    border: 1px solid $color-lightgray2;
+    border-radius: 0.5rem;
+  }
+
+  &.outlinedBorderGray {
+    background: transparent;
+    border: 1px solid $color-gray;
+    .button {
+      color: $color-darkgray;
+    }
+  }
+  &.outlinedBorderGray2 {
+    background: transparent;
+    border: 1px solid $color-lightgray2;
+    .button {
+      color: $color-black3;
+    }
+  }
+  &.outlinedSmallLabel {
+    background: transparent;
+    border: 1px solid $color-darkgray;
+    .button {
+      font-size: 0.75rem;
+    }
+  }
+  &.hearing {
+    background: $color-white;
+    border-radius: 0.5rem;
+  }
+  &.bgWhite {
+    background: $color-white;
+  }
+  // サイズ
+  &.sm {
+    border-radius: 34px;
+    .button {
+      padding: 0.875rem 0;
+      overflow: hidden;
+      line-height: 1;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+  &.xs {
+    border-radius: 34px;
+    .button {
+      padding: 0.75rem 0;
+      overflow: hidden;
+      font-size: 0.75rem;
+      font-weight: 500;
+      line-height: 0.75;
+      color: $color-black3;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+  // 配置
+  &.inline {
+    border-color: $color-lightgray2;
+    .button {
+      padding: 0.75rem 0;
+      font-weight: 500;
+      color: $color-black3;
+    }
+  }
+  // 無効
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,128 @@
+.content {
+  position: relative;
+}
+
+.image {
+  img {
+    width: 100%;
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    object-fit: center;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  .skinAge {
+    display: flex;
+    flex-grow: 1;
+    width: 48%;
+    padding: 0.5rem;
+    font-weight: 700;
+    color: $color-black3;
+    background: $bg-gray;
+    border-radius: 0.5rem;
+    @include yugothic-font();
+    span {
+      &:first-child {
+        margin-right: 0.75rem;
+        font-size: 0.75rem;
+        white-space: nowrap;
+      }
+      &:last-child {
+        display: flex;
+        flex-grow: 1;
+        align-items: flex-end;
+        justify-content: flex-end;
+        background-clip: text;
+      }
+    }
+    b {
+      @include roboto-font();
+
+      margin-right: 0.25rem;
+      font-size: 2.5rem;
+      line-height: 1;
+      color: $color-pink6;
+      white-space: nowrap;
+    }
+  }
+  .legends {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: flex-start;
+    width: 52%;
+    padding: 0 0 0 1rem;
+  }
+  .color {
+    min-width: 1rem;
+    min-height: 1rem;
+    margin-right: 0.5rem;
+    border: 2px solid;
+    border-radius: 4px;
+    opacity: 0.5;
+    &.yours {
+      width: 1.25rem;
+      height: 1.25rem;
+      background: linear-gradient(
+        161.73deg,
+        $color-blue2 0%,
+        $color-pink2 81.25%
+      );
+      border: none;
+      border-radius: 4px;
+      opacity: 0.5;
+    }
+    &.average {
+      display: flex;
+      align-items: center;
+      width: 1.25rem;
+      border: none;
+    }
+  }
+  .legend {
+    display: flex;
+    align-items: center;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    &:first-child {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.actions {
+  margin-top: 1.1875rem;
+  text-align: center;
+  .link {
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: $color-darkgray;
+    text-decoration: none;
+    @include yugothic-font();
+  }
+
+  .btn {
+    margin: 1.5rem 0 0;
+  }
+  .descriptionBox {
+    margin: 2rem 0 0.5rem 0;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 150%;
+    color: $color-black4;
+    @include yugothic-font();
+    .description {
+      display: flex;
+      text-align: left;
+      span {
+        display: block;
+      }
+    }
+  }
+}
+

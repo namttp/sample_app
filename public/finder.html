@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ja">
+    
+    <head>
+        <script src="//assets.adobedtm.com/b7a762abc961/ca539d1daace/launch-2903eb4007a0.min.js"></script>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ほうれい線 AI FINDER | カネボウ化粧品</title>
+        <meta name="description" 
+            content="TWANY(トワニー)の「ほうれい線 AI FINDER」。TWANYが独自開発したAIを使用し、頬のふくらみの影やシワの状態からほうれい線タイプを解析。ほうれい線を目立ちにくくするメイクアップ商品やテクニックをご提案します。">
+        <meta name="keywords" 
+            content="TWANY,トワニー,新商品情報,ドラマティックメモリー,タイムビューティパクト,AI解析,ほうれい線,メイクアップ化粧品,頬のふくらみ,シワ,スキンケア,ベースメイク,フェースカラー,美容ツール,ウェブ解析,Web解析,オンライン解析,ネット解析,カネボウ,kanebo">
+        <meta property="og:title" content="ほうれい線 AI FINDER | カネボウ化粧品">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://twany-dramaticmemory.jp">
+        <meta property="og:image" content="https://twany-dramaticmemory.jp/assets/images/ogp.png">
+        <meta property="og:site_name" content="ほうれい線 AI FINDER | カネボウ化粧品">
+        <meta property="og:description" 
+            content="TWANY(トワニー)の「ほうれい線 AI FINDER」。TWANYが独自開発したAIを使用し、頬のふくらみの影やシワの状態からほうれい線タイプを解析。ほうれい線を目立ちにくくするメイクアップ商品やテクニックをご提案します。" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="ほうれい線 AI FINDER | カネボウ化粧品" />
+        <meta name="twitter:description" 
+            content="TWANY(トワニー)の「ほうれい線 AI FINDER」。TWANYが独自開発したAIを使用し、頬のふくらみの影やシワの状態からほうれい線タイプを解析。ほうれい線を目立ちにくくするメイクアップ商品やテクニックをご提案します。" />
+        <meta name="twitter:image" content="https://twany-dramaticmemory.jp/assets/images/ogp.png" />
+        
+        <link rel="icon" href="favicon.ico">
+        <link rel="stylesheet" href="/assets/stylesheets/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="/assets/javascripts/pico.js"></script>
+    </head>
+    <body>
+        <header>
+            <img src="/assets/images/header_logo_finder.png" class="header-logo-finder" alt="TWANY">
+        </header>
+        <main role="main">
+            <div class="container">
+                <div class="main-frame" id="window-camera">
+                    <h1 class="page-title">撮影</h1>
+                    <div class="video-wrapper" style="display: none;">
+                        <video id="js-video" autoplay muted playsinline></video>
+                    </div>
+                    <div class="content-wrapper" id="confirm">
+                        <div class="canvas-wrapper">
+                            <canvas id="js-canvas"></canvas>
+                            <div id="count-down"></div>
+                            <div id="guide-circle"></div>
+                            <div id="scanner"></div>
+                            <div id="face-guide"></div>
+                            <div id="face-guide-plus"></div>
+                        </div>
+                        <div class="confirm-wrapper">
+                            <p id="camera-message">
+                                &nbsp; 
+                            </p>
+                            <div class="btn-wrapper" id="camera-control">
+                                <button id="btn-camera-retry" class="btn prev">やり直す</button>
+                                <button id="btn-camera-ok" class="btn next mb70">解析する</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="main-frame" id="window-permission-error">
+                    <img src="/assets/images/icon_alert_sp.png" class="alert-icon" alt="ALERT">
+                    <p>
+                        カメラにアクセスできません。<br />
+                        iphoneの方はSafari、Androidの方は<br class="sp" />Chromeからアクセスしてください。<br />
+                        <br />
+                        または、カメラ機能の距離設定を解除する<br class="sp" />必要があります。 
+                    </p>
+                    <div class="btn-wrapper">
+                        <a href="index.html" class="btn prev" title="TOPに戻る">TOPに戻る</a>
+                        <a href="setting.html" class="btn next" title="設定方法はこちら">設定方法はこちら</a>
+                    </div>
+                </div>
+
+                <div class="main-frame" id="window-system-error">
+                    <img src="/assets/images/icon_alert_sp.png" class="alert-icon" alt="ALERT">
+                    <p>
+                        申し訳ございません。<br />
+                        正しく解析することができませんでした。<br />
+                        撮影環境を確認してください。<br />
+                        <br />
+                        ・適切な明るさでの撮影<br />
+                        ・正しい顔の向きかどうか<br />
+                        ・安定した通信環境 
+                    </p>
+                    <div class="btn-wrapper">
+                        <a href="index.html" class="btn prev" title="TOPに戻る">TOPに戻る</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer>
+            <div class="copyright">Copyright © Kao Beauty Brands. All Rights Reserved.</div>
+        </footer>
+        
+        <script nonce="fd4ad8104da8">
+        document.addEventListener('DOMContentLoaded', function (){ 
+            // For Settings 
+            const domain='https://api.twany-dramaticmemory.jp/'; 
+            const token_url=domain + 'access_tokens'; 
+            const analysis_url=domain + 'wrinkle_predictions'; 
+            const INTERVAL=50; 
+            var WIDTH=1080; 
+            var HEIGHT=1080;
+            var CENTER_MARGIN=(WIDTH / 2 - 50); 
+            var isSquare=true; 
+            var longerWidth=false; 
+            var streamWidth=0; 
+            var streamHeight=0; 
+            const video=document.getElementById('js-video'); 
+            const count_down_text=document.getElementById('count-down'); 
+            const guide_circle=document.getElementById('guide-circle'); 
+            const face_guide=document.getElementById('face-guide'); 
+            const face_guide_plus=document.getElementById('face-guide-plus'); 
+            const camera_control=document.getElementById('camera-control'); 
+            const camera_message=document.getElementById('camera-message'); 
+            const scanner=document.getElementById('scanner'); 
+            const btn_camera_ok=document.getElementById('btn-camera-ok'); 
+            const btn_camera_retry=document.getElementById('btn-camera-retry'); 
+            const window_camera=document.getElementById('window-camera'); 
+            const window_permission_error=document.getElementById('window-permission-error'); 
+            const window_system_error=document.getElementById('window-system-error'); 
+            const confirm=document.getElementById('confirm'); 
+
+            var token; 
+            if (!navigator.mediaDevices){ 
+                alert('このデバイスはカメラに対応しておりません。対応デバイスで実行してください。'); 
+                return;
+            } 
+
+            var init=function (){ 
+                token=null; 
+                axios.post(token_url).then(res=>{ 
+                    video_update(); 
+                    console.log('res', res); 
+                    token=res.data.token; 
+                    window_camera.classList.add('active');
+                }).catch(err=>{ 
+                    console.log('error', err);
+                });
+            }; 
+
+            // 顔認識ライブラリの初期化
+            var update_memory=pico.instantiate_detection_memory(5); 
+            // we will use the detecions of the last 5 frames 
+            var facefinder_classify_region=function (r, c, s, pixels, ldim){ return -1.0;}; 
+            var cascadeurl='https://raw.githubusercontent.com/nenadmarkus/pico/c2e81f9d23cc11d1a612fd21e4f9de0921a5d0d9/rnt/cascades/facefinder'; 
+            fetch(cascadeurl).then(function (response){ 
+                response.arrayBuffer().then(function (buffer){ 
+                    var bytes=new Int8Array(buffer);
+                    facefinder_classify_region=pico.unpack_cascade(bytes); 
+                    console.log('* facefinder loaded');
+                });
+            }); 
+            
+            var canvas=document.getElementById('js-canvas'); 
+            var ctx=canvas.getContext('2d'); 
+            function rgba_to_grayscale(rgba, nrows, ncols){ 
+                var gray=new Uint8Array(nrows * ncols); 
+                for (var r=0; r < nrows; ++r){ 
+                    for (var c=0; c < ncols; ++c){ 
+                        // gray=0.2*red + 0.7*green + 0.1*blue 
+                        gray[r * ncols + c]=(2 * rgba[r * 4 * ncols + 4 * c + 0] + 7 * rgba[r * 4 * ncols + 4 * c + 1] + 1 * rgba[r * 4 * ncols + 4 * c + 2]) / 10;
+                    }
+                } 
+                return gray;
+            } 
+            
+            var processfn=function (v){
+                // render the video frame to the canvas element and extract RGBA pixel data 
+                if (isSquare){ 
+                    ctx.drawImage(v, 0, 0);
+                } else{ 
+                    if (longerWidth){ 
+                        ctx.drawImage(v, (streamWidth - streamHeight) / 2, 0, streamHeight, streamHeight, 0, 0, streamHeight, streamHeight);
+                    } else{ 
+                        ctx.drawImage(v, 0, (streamHeight - streamWidth) / 2, streamWidth, streamWidth, 0, 0);
+                    }
+                } 
+                var rgba=ctx.getImageData(0, 0, WIDTH, HEIGHT).data; 
+                // prepare input to `run_cascade` 
+                image={ 
+                    "pixels": rgba_to_grayscale(rgba, HEIGHT, WIDTH), 
+                    "nrows": HEIGHT, 
+                    "ncols": WIDTH, 
+                    "ldim": WIDTH
+                } 
+                params={ 
+                    "shiftfactor": 0.1, 
+                    // move the detection window by 10% of its size 
+                    "minsize": (WIDTH * 0.6), 
+                    // minimum size of a face 
+                    "maxsize": WIDTH, 
+                    // maximum size of a face 
+                    "scalefactor": 1.1 
+                    // for multiscale processing: resize the detection window by 10% when moving to the higher scale
+                } 
+                // run the cascade over the frame and cluster the obtained detections 
+                // dets is an array that contains (r, c, s, q) quadruplets 
+                // (representing row, column, scale and detection score) 
+                dets=pico.run_cascade(image, facefinder_classify_region, params); 
+                dets=update_memory(dets); 
+                dets=pico.cluster_detections(dets, 0.2); // set IoU threshold to 0.2 
+                // draw detections 
+                for (i=0; i < dets.length; ++i){ 
+                    // check the detection score
+                    // if it's above the threshold, draw it 
+                    // (the constant 50.0 is empirical: other cascades might require a different one) 
+                    if (dets[i][3] >50.0){ 
+                        var r, c, s; 
+                        // for debug 
+                        // ctx.beginPath(); 
+                        // ctx.arc(dets[i][1], dets[i][0], dets[i][2]/2, 0, 2*Math.PI, false); 
+                        // ctx.lineWidth=6; 
+                        // ctx.strokeStyle='red'; 
+                        // ctx.stroke(); 
+                        return{ 
+                            'width': dets[i][2], 
+                            'center_x': dets[i][1], 
+                            'center_y': dets[i][0]
+                        }
+                    }
+                }
+            } 
+            
+            var timer=null; 
+            var video_update=function (){ 
+                console.log('start detaction'); 
+                var timer_count; 
+                var count_down; 
+                var count; 
+                var success; 
+                
+                var camera_init=function (){ 
+                    count_down_text.classList.remove('active'); 
+                    guide_circle.classList.remove('hide'); 
+                    guide_circle.classList.remove('success'); 
+                    camera_control.classList.remove('active'); 
+                    face_guide.classList.remove('active'); 
+                    face_guide_plus.classList.remove('active'); 
+                    confirm.classList.remove('active'); 
+                    camera_message.innerHTML='白枠に顔の輪郭を<br class="pc">合わせてください。'; 
+                    video.play(); 
+                    timer_count=0; 
+                    count_down=false; 
+                    count=3; 
+                    success=false;
+                } 
+                camera_init(); 
+                
+                timer=setInterval(function (){ 
+                    var result=processfn(video); 
+                    if (result==undefined){ 
+                        ////////// 計測NG ////////// 
+                        camera_init(); 
+                        return;
+                    } 
+                    //console.log(result); 
+                    if (result['width'] >=(WIDTH * 0.6) 
+                    && result['width'] <=WIDTH 
+                    && result['center_x'] >=(WIDTH / 2 - CENTER_MARGIN) 
+                    && result['center_x'] <=(WIDTH / 2 + CENTER_MARGIN) && result['center_y'] >=(HEIGHT / 2 - CENTER_MARGIN) 
+                    && result['center_y'] <=(HEIGHT / 2 + CENTER_MARGIN)){ 
+                        ////////// 計測OK ////////// 
+                        success=true; 
+                        count=(3 - Math.floor(timer_count * INTERVAL / 1000)); 
+                        guide_circle.classList.add('success'); 
+                        //カウントダウン開始(テキストを表示) 
+                        if (!count_down){ 
+                            count_down=true; 
+                            count_down_text.classList.add('active'); 
+                            camera_message.innerHTML='赤枠のまま<br class="pc">動かないでください。';
+                        } 
+                        //カウント終了（コントロール表示） 
+                        if (count==0){ 
+                            video.pause(); 
+                            count_down_text.classList.remove('active'); 
+                            clearInterval(timer); 
+                            guide_circle.classList.remove('success'); 
+                            camera_message.innerHTML='写真をご確認ください。<br/>よろしければ、「解析する」ボタンを<br/>押してください。'; 
+                            camera_control.classList.add('active'); 
+                            confirm.classList.add('active'); 
+                            return;
+                        } 
+                        count_down_text.textContent=count; 
+                        timer_count++;
+                    } else{ 
+                        ////////// 計測NG ////////// 
+                        camera_init();
+                    } 
+                    //console.log(timer_count, count, success);
+                }, INTERVAL);
+            } 
+            
+            btn_camera_ok.addEventListener('click', function (){
+                camera_control.classList.remove('active'); 
+                camera_message.textContent='解析中・・・'; 
+                camera_control.classList.remove('active'); 
+                confirm.classList.remove('active'); 
+                guide_circle.classList.add('hide'); 
+                face_guide.classList.add('active'); 
+                face_guide_plus.classList.add('active'); 
+                //写真をとって次の処理へ 
+                setTimeout(function (){ 
+                    axios.post(analysis_url,{ image: canvas.toDataURL('image/jpeg')},{ headers:{ 'X-Authorization': token}}).then(res=>{
+                        scanner.classList.add('scan'); 
+                        console.log('res', res.data); 
+                        setTimeout(function (){ 
+                            // window_camera.classList.add('hide'); 
+                            location.href='result' + res.data.type + '.html';
+                        }, 3500);
+                    }).catch(err=>{ 
+                        //解析エラー 
+                        window_camera.classList.add('hide'); 
+                        window_system_error.classList.add('active');
+                    });
+                    }, 2500);
+                }); 
+                btn_camera_retry.addEventListener('click', function (){ 
+                    video_update();
+                }); 
+                navigator.mediaDevices.getUserMedia({ 
+                    audio: false, 
+                    video:{ 
+                        width: WIDTH, 
+                        height: HEIGHT, 
+                        facingMode: 'user'
+                    }
+                }).then(function (stream){ 
+                    init(); 
+                    video.srcObject=stream; 
+                    streamWidth=stream.getVideoTracks()[0].getSettings().width; 
+                    streamHeight=stream.getVideoTracks()[0].getSettings().height; 
+                    if (streamWidth !=streamHeight){ 
+                        isSquare=false; 
+                        if (streamWidth >streamHeight){ 
+                            longerWidth=true; 
+                            WIDTH=streamHeight; 
+                            HEIGHT=streamHeight;
+                        } else{ 
+                            WIDTH=streamWidth; 
+                            HEIGHT=streamHeight;
+                        }
+                    } 
+                    console.log(streamWidth, streamHeight); 
+                    canvas.width=WIDTH; 
+                    canvas.height=HEIGHT;
+                }).catch(function (error){ 
+                    console.log(error); 
+                    window_permission_error.classList.add('active'); 
+                    return;
+                });
+            }); 
+        </script>
+        <script type="text/javascript">_satellite.pageBottom();</script>
+    </body>
+    </html>

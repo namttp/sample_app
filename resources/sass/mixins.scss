@@ -1,0 +1,80 @@
+$breakpoints: (
+  'sm': 576px,
+  'md': 768px,
+  'lg': 992px,
+  'xl': 1200px,
+);
+
+@mixin mq($size) {
+  @media screen and (max-width: #{map-get($breakpoints, $size)}) {
+    @content;
+  }
+}
+
+@mixin arial-font() {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@mixin yugothic-font() {
+  font-family: "YakuHanJP_Narrow", "游ゴシック体", "游ゴシック", "Yu Gothic Medium", "Yu Gothic", YuGothic, "Hiragino Sans", "ヒラギノ角ゴシック", "メイリオ", Meiryo, sans-serif;
+}
+
+@mixin roboto-font() {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+@mixin noto-sans-font() {
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+}
+
+@mixin zen-maru-gothic-font() {
+  font-family: 'Zen Maru Gothic', sans-serif;
+  font-weight: 400;
+}
+
+@mixin flexbox-basic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin line-clamp($count: 3) {
+  display: -webkit-box;
+  -webkit-line-clamp: $count;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+@mixin gradient-text($angle: 0deg, $color: #0e3b68, $color2: #0248a3) {
+  display: inline-block;
+  color: $color;
+  background: -webkit-linear-gradient($angle, $color, $color2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin underbar-link() {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  &::after {
+    position: absolute;
+    top: calc(100% + 0.3125rem);
+    left: 0;
+    width: 100%;
+    height: 1px;
+    content: '';
+    background-color: var(--c-light-blue2);
+    transition: transform 0.4s cubic-bezier(0.86, 0, 0.07, 1);
+    transform: scaleX(0);
+    transform-origin: bottom right;
+  }
+  &:hover {
+    &::after {
+      transform: scaleX(1);
+      transform-origin: bottom left;
+    }
+  }
+}

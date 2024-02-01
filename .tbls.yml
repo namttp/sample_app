@@ -1,0 +1,18 @@
+docPath: dbdoc
+dsn: mysql://sail:password@localhost:33059/example_app
+
+er:
+  # Skip generation of ER diagram
+  # Default is false
+  skip: false
+  # ER diagram image format
+  # Default is `svg`
+  format: svg
+  # Add table/column comment to ER diagram
+  # Default is false
+  comment: true
+  # Distance between tables that display relations in the ER
+  # Default is 1
+  distance: 2
+  # ER diagram (png/jpg) font (font name, font file, font path or keyword)
+  # Default is "" ( system default )

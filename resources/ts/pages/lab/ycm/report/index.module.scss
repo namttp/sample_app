@@ -1,0 +1,92 @@
+.content {
+  position: fixed;
+  z-index: $z-index-popup;
+  width: calc(100% - 3rem);
+  height: 100%;
+  padding-right: 1.5rem;
+  padding-bottom: 1.5rem;
+  padding-left: 1.5rem;
+  background: linear-gradient(132.18deg, #E7EDFF -0.07%, #F3EFFF 48.89%, #FFE4EC 99.93%);
+  transition: all 1s;
+  &.orange {
+    background: linear-gradient(132.18deg, #FFE4EC -0.07%, #FFF1E4 48.89%, #FEFFE3 99.93%);
+    transition: all 1s;
+  }
+  &.green {
+    background: linear-gradient(132.18deg, #FEFFE3 -0.07%, #E9FFE3 48.89%, #E3FFFD 99.93%);
+    transition: all 1s;
+  }
+  .inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0 2rem;
+    border-radius: 8px;
+  }
+  .progress {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+    color: $color-purple2;
+    b {
+      margin-right: .25rem;
+      font-size: 3rem;
+      color: $color-pink6;
+      @include arial-font();
+
+    }
+  }
+  .heading {
+    margin: 0 0 .5rem 0;
+    font-size:  1.25rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $color-purple2;
+    text-align: center;
+  }
+  .image {
+    margin-bottom: 3.125rem;
+    text-align: center;
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+  .msg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 8.45rem;
+    padding: 2.25rem .5rem;
+    margin: 2px;
+    font-size: .875rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $color-black3;
+    text-align: center;
+    background: linear-gradient(106.66deg, #EEEFFF 11.37%, #F9EBF7 100%);
+    border-radius: .5rem;
+    transition: all 1s;
+    &.green {
+      background: linear-gradient(132.18deg, #FEFFE3 -0.07%, #E9FFE3 48.89%, #E3FFFD 99.93%);
+      transition: all 1s;
+    }
+    &.orange {
+      background: linear-gradient(106.93deg, #FFECE8 4.23%, #FFF8E4 95.92%);
+      transition: all 1s;
+    }
+    @include yugothic-font();
+  }
+  .label {
+    color: #ff9ba0;
+  }
+
+  .liner {
+    width: 100%;
+    height: 1rem;
+  }
+}

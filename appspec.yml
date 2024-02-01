@@ -1,0 +1,36 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: <DESTINATION>
+
+hooks:
+  BeforeInstall:
+    - location: scripts/stopApp.sh
+      runas: root
+      timeout: 120
+  AfterInstall:
+    - location: scripts/setup.sh
+      timeout: 120
+      runas: root
+    - location: scripts/preparation.sh
+      runas: dev-user01
+      timeout: 120
+  ApplicationStart:
+    - location: scripts/startApp.sh
+      runas: dev-user01
+      timeout: 120
+
+permissions:
+  - object: <DESTINATION>/scripts
+    pattern: "**"
+    owner: dev-user01
+    group: dev-user01
+    mode: 774
+    type:
+      - file
+  - object: <DESTINATION>/tests
+    pattern: "**/*"
+    owner: dev-user01
+    group: dev-user01
+    mode: 774

@@ -1,0 +1,59 @@
+.skinDiagnosis {
+  @include yugothic-font();
+
+  position: relative;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: $color-darkgray;
+  background: $bg-gray;
+  img {
+    width: auto;
+  }
+}
+
+#layout {
+  min-height: 500px;
+}
+
+html {
+  font-size: 16px;
+}
+
+html#is-fixed {
+  z-index: 1 !important;
+}
+
+body {
+  margin: 0;
+  font-size: min(12px, 3.2vw);
+}
+
+button {
+  border: none;
+}
+
+#skinDiagnosisLoading {
+  position: absolute;
+  top: 90px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-index-loading;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, .8);
+}
+
+#skinDiagnosisLoading img {
+  position: fixed;
+  top: calc(50% - 1.25rem);
+  left: calc(50% - 1.25rem);
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+#skinDiagnosisLoading ~ .dummy {
+  height: calc(100vh - 90px);
+}

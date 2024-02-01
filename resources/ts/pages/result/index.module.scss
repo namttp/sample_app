@@ -1,0 +1,82 @@
+.content {
+  padding: 3.875rem 1rem;
+  background: url(/covers/grad.png) repeat-x 0 0;
+}
+
+.section {
+  margin-bottom: 2.5rem;
+  &.last {
+    margin-bottom: 0;
+  }
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.graph {
+  padding: 1rem;
+  background: $color-white;
+  border-radius: 12px;
+  .inner {
+    .heading {
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: $color-black3;
+      text-align: center;
+    }
+  }
+}
+
+.actions {
+  padding: 0 1rem;
+  margin-top: 1.5rem;
+  .btn {
+    height: 3.1875rem;
+  }
+}
+
+.skinTrouble {
+  background: $color-white;
+  border-radius: 0.75rem;
+  .heading {
+    position: relative;
+    padding:1.5rem 1rem;
+    margin-bottom: 0.875rem;
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $color-blue5;
+    text-align: center;
+    span {
+      position: relative;
+    }
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: block;
+      content: "";
+      background: linear-gradient(95.92deg, #a3bdf2 12.11%, #ffaac2 109.9%);
+      border-radius: 0.75rem 0.75rem 0 0;
+      opacity: 0.3;
+    }
+    @include yugothic-font();
+  }
+  .troubles {
+    padding: 0 1rem 1rem 1rem;
+    &.pb {
+      padding-bottom: 0;
+    }
+    > * {
+      margin-bottom: 2.375rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+

@@ -1,0 +1,89 @@
+.content {
+  position: relative;
+  padding: 1rem;
+  border: 1px solid $color-gray3;
+}
+
+.heading {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% - .75rem);
+  left: 0;
+  color: $color-white;
+  text-align: center;
+  white-space: nowrap;
+  span {
+    box-sizing: content-box;
+    display: inline-block;
+    height: .75rem;
+    padding: .5rem 1.5rem .6rem 1.5rem;
+    font-size: .75rem;
+    line-height: 1;
+    background: $color-darkgray;
+    border-radius: 16px;
+  }
+}
+
+.troubles {
+  display: flex;
+  justify-content: center;
+  margin-top: .875rem;
+  .trouble {
+    width: 50%;
+    text-align: center;
+    border: 1px solid $color-gray3;
+    &:first-child {
+      margin-right: .5rem;
+    }
+    &:last-child {
+      margin-left: .5rem;
+    }
+    .title {
+      margin-top: 0.625rem;
+      margin-bottom: 0.3125rem;
+      font-size: .625rem;
+      font-weight: 600;
+      line-height: 1;
+      color: $color-darkgray;
+      @include yugothic-font();
+    }
+    .score {
+      @include yugothic-font();
+
+      margin-bottom: .5rem;
+      font-size: 0.5625rem;
+      font-weight: 600;
+      line-height: 1;
+      color: $color-darkgray;
+      b {
+        @include roboto-font();
+
+        margin-right: 0.25rem;
+        font-size: 1.25rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1;
+      }
+    }
+    .feedback {
+      padding: .5rem 0 0.625rem 0;
+      font-size: .75rem;
+      font-weight: 600;
+      line-height: 1;
+      color: $color-darkgray;
+      border-top: 1px solid $color-lightgray3;
+      @include yugothic-font();
+    }
+  }
+}
+
+.comment {
+  padding: .75rem;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.66666667;
+  background: $color-gray2;
+  @include yugothic-font();
+}

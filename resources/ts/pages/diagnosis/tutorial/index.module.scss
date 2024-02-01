@@ -1,0 +1,43 @@
+.content {
+  width: 100%;
+  height: calc(100%);
+  padding-top: 4.5rem;
+  padding-right: 1.5rem;
+  padding-bottom: 1.5rem;
+  padding-left: 1.5rem;
+  .inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: inherit;
+    height: inherit;
+    background: $color-white;
+    border-radius: 8px;
+  }
+  .image {
+    display: flex;
+    justify-content: center;
+    min-height: 4.875rem;
+    margin-bottom: 1.5rem;
+  }
+  .close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+  .msg {
+    @include yugothic-font();
+
+    padding: 0 2.6875rem;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.5;
+    color: $color-black3;
+    div {
+      text-align: center;
+    }
+  }
+}

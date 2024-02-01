@@ -1,0 +1,27 @@
+.notice {
+  position: fixed;
+  top: calc($header-height + 1rem);
+  right: 0;
+  left: 0;
+  z-index: $z-index-popup;
+  margin: .5rem;
+  overflow: hidden;
+  background: $color-white;
+  border-radius: 0.5625rem;
+  box-shadow: .25rem .25rem .5rem rgba(0, 0, 0, 0.13);
+  .inner {
+    display: flex;
+    gap: .75rem;
+    align-items: center;
+    width: 100%;
+    padding:.875rem 1rem .9375rem 1rem;
+    background: $color-white;
+    .text {
+      font-size: .75rem;
+      font-weight: 700;
+      line-height: .75rem;
+      color: $color-black3;
+      @include yugothic-font();
+    }
+  }
+}

@@ -1,0 +1,105 @@
+# You will have to setup 4 variables in your Gitlab setup for the AWS SDK to pick you your AMI credentials
+# AWS_ACCESS_KEY_ID, AWS_BUCKET, AWS_REGION, AWS_SECRET_ACCESS_KEY, APPLICATION_NAME
+#image: gitlab.geekhive.co.jp:5050/gitlab-instance-233d1469/playpark-api:latest
+stages:
+  - test
+  - build
+  - deploy
+
+#variables:
+#  MYSQL_DATABASE: homestead
+#  MYSQL_ROOT_PASSWORD: secret
+#  DB_HOST: mysql
+#  DB_USERNAME: root
+
+unit_test:
+  stage: test
+  script:
+    - echo "start"
+
+build_development:
+  image: node:16.17.0
+  stage: build
+  script:
+    - echo "build"
+    - npm install
+    - npm run build-staging
+  artifacts:
+    paths:
+      - public
+  environment:
+    name: twany
+  only:
+    - twany
+
+build_production:
+  image: node:16.17.0
+  stage: build
+  script:
+    - echo "build"
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - public
+  environment:
+    name: production
+  only:
+    - main
+
+deploy_development:
+  artifacts:
+    paths:
+      - public
+  stage: deploy
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  script:
+    - apt-get update
+    - apt-get install -y zip unzip
+    - echo "Deploy app"
+    - branch_name=$(echo $CI_COMMIT_REF_NAME | sed 's/\//-/g')
+    - echo $branch_name
+    - version="$branch_name-$CI_PIPELINE_ID"
+    - zip_name=deploy.zip
+    - datetime=$(date +%Y%m%d%H%M%S)
+    - destination=/var/www/app/releases/$datetime
+    - sed -i -e "s|<DESTINATION>|$destination|g" appspec.yml scripts/stopApp.sh scripts/startApp.sh scripts/setup.sh scripts/preparation.sh
+    - zip -r $zip_name . -x .git\* .node_modules\* -x .git\* .node_modules\* -x .git\* .node_modules\* -x .git\* .node_modules\*
+    - echo $version
+    - path="kao-hada-reco-monitor/$version/$zip_name"
+    - key="s3-backend-dev-deploy/$path"
+    - aws s3 cp ${zip_name} s3://$key --metadata x-amz-meta-application-name=app,x-amz-meta-deploymentgroup-name=${obj}
+    - aws deploy create-deployment --application-name $APPLICATION_NAME --deployment-group-name dev --s3-location bucket=s3-backend-dev-deploy,bundleType=zip,key=$path --region $AWS_DEFAULT_REGION
+  environment:
+    name: twanyt
+  only:
+    - twany
+
+deploy_production:
+  artifacts:
+    paths:
+      - public
+  stage: deploy
+  image: registry.gitlab.com/gitlab-org/cloud-deploy/aws-base:latest
+  script:
+    - apt-get update
+    - apt-get install -y zip unzip
+    - echo "Deploy app"
+    - branch_name=$(echo $CI_COMMIT_REF_NAME | sed 's/\//-/g')
+    - echo $branch_name
+    - version="$branch_name-$CI_PIPELINE_ID"
+    - zip_name=deploy.zip
+    - datetime=$(date +%Y%m%d%H%M%S)
+    - destination=/var/www/app/releases/$datetime
+    - sed -i -e "s|<DESTINATION>|$destination|g" appspec.yml scripts/stopApp.sh scripts/startApp.sh scripts/setup.sh scripts/preparation.sh
+    - zip -r $zip_name . -x .git\* .node_modules\* -x .git\* .node_modules\* -x .git\* .node_modules\* -x .git\* .node_modules\*
+    - echo $version
+    - path="kao-hada-reco-monitor/$version/$zip_name"
+    - key="s3-backend-dev-deploy/$path"
+    - aws s3 cp ${zip_name} s3://$key --metadata x-amz-meta-application-name=app,x-amz-meta-deploymentgroup-name=${obj}
+    - aws deploy create-deployment --application-name $APPLICATION_NAME --deployment-group-name prod --s3-location bucket=s3-backend-dev-deploy,bundleType=zip,key=$path --region $AWS_DEFAULT_REGION
+  environment:
+    name: production
+  when: manual
+  only:
+    - main
