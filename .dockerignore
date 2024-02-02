@@ -12,7 +12,6 @@
 /.styleci.yml
 /.phpunit.result.cache
 /.php-cs-fixer.cache
-/package.json
 /phpunit.xml
 /README.md
 /phpspec.yml
@@ -22,7 +21,7 @@
 /.git
 /.idea
 /.vscode
-**.env*
+**.env
 **.editorconfig
 **.gitattributes
 **.gitignore
