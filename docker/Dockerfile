@@ -2,7 +2,7 @@ FROM php:8.1-fpm-alpine
 
 WORKDIR /var/www/html
 
-RUN apk add --no-cache nginx supervisor wget nodejs npm
+RUN apk add --no-cache nginx supervisor wget nodejs npm curl
 
 RUN docker-php-ext-install pdo pdo_mysql
 
